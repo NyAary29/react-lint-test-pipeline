@@ -20,9 +20,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: react-lint-ci-cd
 
       - name: Run ESLint
         run: npm run lint
+        working-directory: react-lint-ci-cd
 
   test:
     runs-on: ubuntu-latest
@@ -33,7 +35,9 @@ jobs:
         with:
           node-version: 20
       - run: npm install
+        working-directory: react-lint-ci-cd
       - run: npm test -- --ci --coverage
+        working-directory: react-lint-ci-cd
 
   security:
     runs-on: ubuntu-latest
@@ -44,7 +48,9 @@ jobs:
         with:
           node-version: 20
       - run: npm install
+        working-directory: react-lint-ci-cd
       - run: npm audit --audit-level=high
+        working-directory: react-lint-ci-cd
 
   build:
     runs-on: ubuntu-latest
@@ -55,12 +61,14 @@ jobs:
         with:
           node-version: 20
       - run: npm install
+        working-directory: react-lint-ci-cd
       - run: npm run build
+        working-directory: react-lint-ci-cd
 
       - name: Upload production-ready build
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist   # Vite génère dans "dist"
+          path: react-lint-ci-cd/dist   # Vite génère dans "dist"
 
   deploy:
     runs-on: ubuntu-latest
